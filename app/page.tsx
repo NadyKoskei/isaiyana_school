@@ -132,39 +132,68 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="about" className="section cream-bg">
+      <section id="about" className="section cream-bg about-section">
         <div className="section-grid about-grid">
-          <div>
-            <p className="eyebrow">About Us</p>
-            <h2>Our story</h2>
-            <p>Isaiyana School is a faith-centered community committed to nurturing joyful learners, strong character, and well-rounded achievement. Our curriculum, boarding life, and pastoral care work together to shape students who thrive in school and in life.</p>
-          </div>
+          <div className="about-copy">
+            <p className="eyebrow light-gold">OUR STORY</p>
+            <h2>Rooted in Faith, Driven by Excellence</h2>
+            <p>Isaiyana Elite Primary &amp; Junior School was established in 2008 with a clear purpose: to provide high-quality, Christ-centred education to the children of Kericho County and beyond. Located 1km from Chebwagan Junction along the Litein-Sotik Highway in Bureti Sub-County, the school has grown over 16 years into a trusted institution serving families from across the region.</p>
+            <p>From its founding, Isaiyana Elite has held firm to the belief that true education goes beyond academics — it shapes character, instils discipline, and produces God-fearing young leaders ready to serve their communities and country.</p>
 
-          <div className="card-grid">
-            {visionMission.map((item) => (
-              <article key={item.title} className="info-card">
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
+            <div className="about-cards">
+              <article className="info-card vision-card">
+                <div className="card-icon">V</div>
+                <h3>Vision</h3>
+                <p>To be a premier Christian-centred, competitive, and outstanding learning institution.</p>
               </article>
-            ))}
+              <article className="info-card mission-card">
+                <div className="card-icon">M</div>
+                <h3>Mission</h3>
+                <p>To provide high-quality, Christ-centred education from early childhood to junior school — equipping learners with knowledge, good discipline, and moral uprightness; nurturing God-fearing individuals who respect the Kenyan Constitution and contribute positively to society.</p>
+              </article>
+            </div>
           </div>
+
+          <aside className="about-teacher-card teacher-panel">
+            <div className="teacher-photo">Principal Photo</div>
+            <div className="teacher-copy">
+              <p className="eyebrow light-gold">Mr. Chepkwony Victor</p>
+              <p className="teacher-title">Head Teacher, Isaiyana Elite Primary &amp; Junior School</p>
+              <div className="teacher-quote">
+                <p>“At Isaiyana Elite, we believe every child carries a God-given potential that is waiting to be unlocked. Our role as educators is to create the environment — one that is safe, loving, disciplined, and academically rigorous — where that potential can flourish. We are committed to walking this journey with every family that trusts us with their child.”</p>
+              </div>
+            </div>
+          </aside>
         </div>
 
-        <div className="core-values">
-          <h3>Core values</h3>
-          <div className="value-grid">
-            {values.map((value) => (
-              <span key={value} className="value-pill">{value}</span>
-            ))}
-          </div>
-        </div>
-
-        <div className="teacher-card">
-          <div className="teacher-photo">Head Teacher</div>
-          <div>
-            <p className="eyebrow">Head Teacher's message</p>
-            <h3>“Education is the gift of a confident future.”</h3>
-            <p>At Isaiyana, every child is seen, encouraged, and prepared with love. We build character alongside knowledge, and we celebrate each learner’s growth.</p>
+        <div className="core-values about-values">
+          <h3>Our Core Values</h3>
+          <div className="value-grid five-values">
+            <article className="value-card">
+              <div className="value-icon">C</div>
+              <h4>Christ-Centeredness</h4>
+              <p>Integrating faith into every aspect of character development</p>
+            </article>
+            <article className="value-card">
+              <div className="value-icon">A</div>
+              <h4>Academic Excellence</h4>
+              <p>Driving competitive, high-quality learning outcomes</p>
+            </article>
+            <article className="value-card">
+              <div className="value-icon">D</div>
+              <h4>Diligence</h4>
+              <p>Modelling an industrious and hardworking spirit in staff and students</p>
+            </article>
+            <article className="value-card">
+              <div className="value-icon">I</div>
+              <h4>Integrity</h4>
+              <p>Upholding ethical standards across the entire institution</p>
+            </article>
+            <article className="value-card">
+              <div className="value-icon">H</div>
+              <h4>Holistic Growth</h4>
+              <p>Supporting the social, physical, and spiritual well-being of every child</p>
+            </article>
           </div>
         </div>
       </section>
