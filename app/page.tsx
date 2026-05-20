@@ -364,34 +364,74 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="footer maroon-bg">
+      <footer className="footer">
         <div className="footer-grid">
-          <div>
-            <div className="footer-logo">Isaiyana School</div>
-            <p>Committed to excellence, faith, and a joyful learning community.</p>
+          <div className="footer-column">
+            <div className="footer-heading"><h4>About</h4></div>
+            <div className="footer-brand">
+              <span className="footer-brand-badge">IE</span>
+              <p className="footer-brand-name">Isaiyana Elite Primary &amp; Junior School</p>
+            </div>
+            <p className="footer-copy">1km from Chebwagan Junction, Litein-Sotik Highway, Bureti Sub-County, Kericho County, Kenya.</p>
+            <div className="footer-socials">
+              <a href="#" className="social-link" aria-label="Facebook">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" stroke="rgba(212,175,55,0.18)" fill="transparent" />
+                  <text x="12" y="15.2" textAnchor="middle" fontSize="10" fill="#d4af37" fontFamily="Inter, Arial, sans-serif" fontWeight="700">f</text>
+                </svg>
+              </a>
+
+              <a href="#" className="social-link" aria-label="WhatsApp">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" stroke="rgba(212,175,55,0.18)" fill="transparent" />
+                  <text x="12" y="15.2" textAnchor="middle" fontSize="10" fill="#d4af37" fontFamily="Inter, Arial, sans-serif" fontWeight="700">w</text>
+                </svg>
+              </a>
+
+              <a href="#" className="social-link" aria-label="YouTube">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" stroke="rgba(212,175,55,0.18)" fill="transparent" />
+                  <polygon points="10,8 16,12 10,16" fill="#d4af37" />
+                </svg>
+              </a>
+            </div>
           </div>
-          <div>
-            <h4>Quick links</h4>
-            <ul>
+
+          <div className="footer-column">
+            <div className="footer-heading"><h4>Quick links</h4></div>
+            <ul className="footer-links">
+              <li><a href="#hero">Home</a></li>
               <li><a href="#about">About</a></li>
-              <li><a href="#admissions">Admissions</a></li>
+              <li><a href="#academics">Academics</a></li>
               <li><a href="#facilities">Facilities</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="#why">Boarding Life</a></li>
+              <li><a href="#admissions">Admissions</a></li>
+              <li><a href="/alumni">Alumni</a></li>
+              <li><a href="#contact">Contact Us</a></li>
             </ul>
           </div>
-          <div>
-            <h4>Contact</h4>
-            <p>+254 700 000 000</p>
-            <p>admissions@isaiyana.ac.ke</p>
+
+          <div className="footer-column">
+            <div className="footer-heading"><h4>Contact</h4></div>
+            <div className="footer-contact-row"><span className="footer-contact-label">Phone:</span><span>0794 598 172</span></div>
+            <div className="footer-contact-row"><span className="footer-contact-label">Email:</span><span>isaiyanaelite@gmail.com</span></div>
+            <div className="footer-contact-row"><span className="footer-contact-label">Office Hours:</span><span>Mon – Fri: 8:00am – 5:00pm<br/>Saturday: 8:00am – 12:00pm</span></div>
+            <div className="footer-contact-row"><span className="footer-contact-label">Google Maps:</span><span>95XQ+FXJ, Litein</span></div>
           </div>
-          <div>
-            <h4>Our mission</h4>
-            <p>Train up a child in the way he should go — academic, spiritual and social growth for every learner.</p>
+
+          <div className="footer-column footer-promise">
+            <div className="footer-heading"><h4>Our Promise</h4></div>
+            <p className="footer-quote">"To provide high-quality, Christ-centred education — equipping learners with knowledge, good discipline, and moral uprightness."</p>
+            <p className="footer-quote-by">— School Mission Statement</p>
           </div>
         </div>
+
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Isaiyana School</p>
-          <p>“Train up a child in the way he should go.” Proverbs 22:6</p>
+          <p className="footer-copyright">© 2026 Isaiyana Elite Primary &amp; Junior School. All Rights Reserved.</p>
+          <p className="footer-bottom-quote">"Train up a child in the way he should go; even when he is old he will not depart from it." — Proverbs 22:6</p>
+          <button type="button" className="scroll-top-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Scroll to top">
+            <span className="scroll-icon">▲</span>
+          </button>
         </div>
       </footer>
     </main>
