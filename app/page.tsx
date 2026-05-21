@@ -1,83 +1,59 @@
 "use client";
 
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const navItems = [
+  { href: '#home', label: 'Home' },
   { href: '#about', label: 'About' },
-  { href: '#why', label: 'Why Choose Us' },
   { href: '#academics', label: 'Academics' },
   { href: '#facilities', label: 'Facilities' },
+  { href: '#boarding', label: 'Boarding Life' },
   { href: '#admissions', label: 'Admissions' },
-  { href: '#activities', label: 'Extracurriculars' },
+  { href: '#alumni', label: 'Alumni' },
   { href: '#contact', label: 'Contact' },
 ];
 
-const heroStats = [
-  { value: '1200+', label: 'Students' },
-  { value: '40+', label: 'Clubs & Teams' },
-  { value: '95%', label: 'Exam Pass Rate' },
-  { value: '24/7', label: 'Boarding Care' },
-];
-
-const visionMission = [
-  { title: 'Our Story', copy: 'Isaiyana School blends academic excellence with strong Christian values. We nurture every learner with caring teachers, modern facilities, and a community that celebrates growth.' },
-  { title: 'Vision', copy: 'To form confident, capable young leaders who flourish academically, spiritually, and socially in a world full of possibility.' },
-  { title: 'Mission', copy: 'To deliver a balanced education rooted in faith, creativity, community, and lifelong learning that empowers every child to succeed.' },
-];
-
-const values = ['Character', 'Compassion', 'Curiosity', 'Creativity', 'Community', 'Courage', 'Christ-Centered', 'Collaboration'];
-
-const whyCards = [
-  { title: 'Faith & Values', copy: 'Daily worship, scripture integration, and a strong moral compass guide every student’s journey.' },
-  { title: 'CBC Curriculum', copy: 'A fresh, competency-based program that builds skills, confidence, and real-world readiness.' },
-  { title: 'Boarding Care', copy: 'Safe, comfortable dorms and a nurturing home away from home for boys and girls.' },
-  { title: 'Experienced Teachers', copy: 'Skilled educators who personalize learning and inspire every learner to grow.' },
-  { title: 'Modern Facilities', copy: 'Science labs, ICT hubs, creative studios, and sports fields designed for active learning.' },
-  { title: 'Holistic Growth', copy: 'Balanced academics, spirituality, arts, and wellbeing prepare students for life beyond school.' },
-];
-
-const academicStages = [
+const heroSlides = [
   {
-    id: 'pp1-3',
-    title: 'PP1–3',
-    description: 'Foundational learning with phonics, numeracy, Christian values, world awareness and play-based creativity.',
-    subjects: ['Literacy', 'Numeracy', 'Bible Study', 'Arts', 'PE', 'Nature Learning'],
+    id: 1,
+    eyebrow: 'EST. 2008 · KERICHO COUNTY, KENYA',
+    tagline: '"Strive To Excel"',
+    subtitle: 'A Christ-Centred Boarding & Day School — Nurturing Academic Excellence and Godly Character Since 2008',
+    supportText: 'PP1 · PP2 · Grades 1–6 · Junior School Grades 7–9 | Boarding & Day',
   },
   {
-    id: 'pp4-6',
-    title: 'PP4–6',
-    description: 'A confident foundation in literacy, science, social studies, and applied skills for growing learners.',
-    subjects: ['English', 'Math', 'Science', 'Swahili', 'ICT', 'Music'],
+    id: 2,
+    eyebrow: 'FAITH & VALUES',
+    tagline: '"Excellence Through Character"',
+    subtitle: 'Building confident young leaders rooted in Christian values and academic excellence.',
+    supportText: 'Daily worship · Scripture integration · Moral compass',
   },
   {
-    id: 'pp7-9',
-    title: 'PP7–9',
-    description: 'Structured CBC pathways that prepare students for national exams, leadership, and community impact.',
-    subjects: ['Biology', 'Chemistry', 'Mathematics', 'English', 'ICT', 'CRE'],
+    id: 3,
+    eyebrow: 'MODERN LEARNING',
+    tagline: '"Competency-Based Education"',
+    subtitle: 'A fresh CBC curriculum designed for real-world readiness and lifelong learning.',
+    supportText: 'Science labs · ICT hubs · Creative studios · Modern facilities',
+  },
+  {
+    id: 4,
+    eyebrow: 'HOLISTIC GROWTH',
+    tagline: '"Nurturing Every Child"',
+    subtitle: 'Balanced academics, spirituality, arts, and wellbeing prepare students for life beyond school.',
+    supportText: 'Boys & Girls sections · Safe boarding · Experienced educators',
   },
 ];
 
-const facilities = [
-  { title: 'Classrooms', copy: 'Bright, flexible spaces for collaborative learning and quiet study.', image: 'classroom' },
-  { title: 'Science Lab', copy: 'Hands-on experiments with modern lab equipment and safety support.', image: 'lab' },
-  { title: 'ICT Suite', copy: 'Connected learning with computers, coding, and digital tools for every child.', image: 'ict' },
-  { title: 'Dining Hall', copy: 'Healthy meals served in a welcoming space for students and staff.', image: 'dining' },
-  { title: 'Playground', copy: 'Safe outdoor play areas built for games, sports, and joyful movement.', image: 'playground' },
-  { title: 'Medical Bay', copy: 'A calm care room with trained staff and emergency support available daily.', image: 'sickbay' },
-];
-
-const activities = [
-  { title: 'Sports', copy: 'Football, netball, athletics and active games for skill, teamwork, and fun.' },
-  { title: 'Christian Union', copy: 'A supportive fellowship for prayer, worship, and character formation.' },
-  { title: 'Scouting', copy: 'Outdoor challenges, leadership drills, and service-minded adventure.' },
-  { title: 'Music & Drama', copy: 'Creative expression through choir, drama, and stage performance.' },
-  { title: 'ICT Club', copy: 'Coding, robotics, and digital creativity for future-ready learners.' },
+const statsData = [
+  { stat: 'Est. 2008', description: '16+ Years of Excellence' },
+  { stat: '20 Teachers', description: '9 Male · 11 Female' },
+  { stat: 'PP1 – Grade 9', description: 'Full CBE Curriculum' },
+  { stat: 'Boarding & Day', description: 'Boys & Girls Sections' },
 ];
 
 export default function HomePage() {
   const [scrolled, setScrolled] = useState(false);
-  const [activeStage, setActiveStage] = useState('pp1-3');
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -86,383 +62,195 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const currentStage = academicStages.find((stage) => stage.id === activeStage) ?? academicStages[0];
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  const slide = heroSlides[currentSlide];
 
   return (
-    <main>
+    <>
+      {/* Navigation */}
       <header className={`site-header ${scrolled ? 'solid' : ''}`}>
         <div className="nav-wrap">
-          <Link href="#hero" className="brand">Isaiyana School</Link>
+          <div className="brand-section">
+            <div className="ie-logo">IE</div>
+            <span className="brand">Isaiyana Elite Primary & Junior School</span>
+          </div>
           <nav className="nav-links">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href}>{item.label}</a>
+              <a key={item.href} href={item.href}>
+                {item.label}
+              </a>
             ))}
-            <Link href="/alumni">Alumni</Link>
-            <Link href="/boarding">Boarding</Link>
           </nav>
-          <a href="#admissions" className="btn pill">Apply Now</a>
+          <button className="btn pill apply-btn">Apply Now</button>
         </div>
       </header>
 
-      <section id="hero" className="hero-section">
-        <div className="hero-overlay" />
-        <div className="hero-carousel">
-          <div className="hero-slide slide-1" />
-          <div className="hero-slide slide-2" />
-          <div className="hero-slide slide-3" />
-        </div>
-
-        <div className="hero-copy">
-          <span className="eyebrow">Founded on faith. Built for excellence.</span>
-          <h1>Isaiyana School</h1>
-          <p>Where strong values, CBC learning, and boarding life come together to prepare every child for academic success and servant leadership.</p>
-          <div className="hero-actions">
-            <a href="#admissions" className="btn solid">Apply Now</a>
-            <a href="#about" className="btn outline">Book a Tour</a>
-          </div>
-        </div>
-
-        <div className="hero-stats">
-          {heroStats.map((item) => (
-            <div key={item.label} className="stat-pill">
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="about" className="section cream-bg about-section">
-        <div className="section-grid about-grid">
-          <div className="about-copy">
-            <p className="eyebrow light-gold">OUR STORY</p>
-            <h2>Rooted in Faith, Driven by Excellence</h2>
-            <p>Isaiyana Elite Primary &amp; Junior School was established in 2008 with a clear purpose: to provide high-quality, Christ-centred education to the children of Kericho County and beyond. Located 1km from Chebwagan Junction along the Litein-Sotik Highway in Bureti Sub-County, the school has grown over 16 years into a trusted institution serving families from across the region.</p>
-            <p>From its founding, Isaiyana Elite has held firm to the belief that true education goes beyond academics — it shapes character, instils discipline, and produces God-fearing young leaders ready to serve their communities and country.</p>
-
-            <div className="about-cards">
-              <article className="info-card vision-card">
-                <div className="card-icon">V</div>
-                <h3>Vision</h3>
-                <p>To be a premier Christian-centred, competitive, and outstanding learning institution.</p>
-              </article>
-              <article className="info-card mission-card">
-                <div className="card-icon">M</div>
-                <h3>Mission</h3>
-                <p>To provide high-quality, Christ-centred education from early childhood to junior school — equipping learners with knowledge, good discipline, and moral uprightness; nurturing God-fearing individuals who respect the Kenyan Constitution and contribute positively to society.</p>
-              </article>
-            </div>
-          </div>
-
-          <aside className="about-teacher-card teacher-panel">
-            <div className="teacher-photo">Principal Photo</div>
-            <div className="teacher-copy">
-              <p className="eyebrow light-gold">Mr. Chepkwony Victor</p>
-              <p className="teacher-title">Head Teacher, Isaiyana Elite Primary &amp; Junior School</p>
-              <div className="teacher-quote">
-                <p>“At Isaiyana Elite, we believe every child carries a God-given potential that is waiting to be unlocked. Our role as educators is to create the environment — one that is safe, loving, disciplined, and academically rigorous — where that potential can flourish. We are committed to walking this journey with every family that trusts us with their child.”</p>
-              </div>
-            </div>
-          </aside>
-        </div>
-
-        <div className="core-values about-values">
-          <h3>Our Core Values</h3>
-          <div className="value-grid five-values">
-            <article className="value-card">
-              <div className="value-icon">C</div>
-              <h4>Christ-Centeredness</h4>
-              <p>Integrating faith into every aspect of character development</p>
-            </article>
-            <article className="value-card">
-              <div className="value-icon">A</div>
-              <h4>Academic Excellence</h4>
-              <p>Driving competitive, high-quality learning outcomes</p>
-            </article>
-            <article className="value-card">
-              <div className="value-icon">D</div>
-              <h4>Diligence</h4>
-              <p>Modelling an industrious and hardworking spirit in staff and students</p>
-            </article>
-            <article className="value-card">
-              <div className="value-icon">I</div>
-              <h4>Integrity</h4>
-              <p>Upholding ethical standards across the entire institution</p>
-            </article>
-            <article className="value-card">
-              <div className="value-icon">H</div>
-              <h4>Holistic Growth</h4>
-              <p>Supporting the social, physical, and spiritual well-being of every child</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="why" className="section maroon-bg">
-        <div className="section-header white-text">
-          <p className="eyebrow light">Why Choose Us</p>
-          <h2>Learning built on faith, CBC, and boarding excellence.</h2>
-        </div>
-        <div className="why-grid">
-          {whyCards.map((item) => (
-            <article key={item.title} className="why-card">
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="academics" className="section white-bg">
-        <div className="section-header">
-          <p className="eyebrow">Academics</p>
-          <h2>Structured stages for every learner.</h2>
-        </div>
-
-        <div className="tab-panel">
-          <div className="tab-buttons">
-            {academicStages.map((stage) => (
-              <button
-                key={stage.id}
-                type="button"
-                className={activeStage === stage.id ? 'tab-button active' : 'tab-button'}
-                onClick={() => setActiveStage(stage.id)}
-              >
-                {stage.title}
-              </button>
+      {/* Hero Section */}
+      <section className="hero-section">
+        {/* Carousel Background */}
+        <div className="hero-carousel-container">
+          <div className="hero-carousel">
+            {heroSlides.map((s, idx) => (
+              <div
+                key={s.id}
+                className={`hero-slide ${idx === currentSlide ? 'active' : ''}`}
+                style={{
+                  opacity: idx === currentSlide ? 1 : 0,
+                  transition: 'opacity 0.6s ease-in-out',
+                }}
+              />
             ))}
           </div>
+          <div className="hero-overlay" />
+        </div>
 
-          <div className="tab-content">
-            <p>{currentStage.description}</p>
-            <div className="pill-grid">
-              {currentStage.subjects.map((subject) => (
-                <span key={subject} className="pill-badge">{subject}</span>
-              ))}
-            </div>
+        {/* Hero Content */}
+        <div className="hero-content">
+          <p className="eyebrow">{slide.eyebrow}</p>
+          <h1 className="hero-title">Isaiyana Elite Primary & Junior School</h1>
+          <div className="gold-rule" />
+          <p className="tagline">{slide.tagline}</p>
+          <p className="subtitle">{slide.subtitle}</p>
+
+          {/* CTA Buttons */}
+          <div className="cta-buttons">
+            <button className="btn solid btn-large">Apply for Admission</button>
+            <button className="btn outline btn-large">Explore the School</button>
           </div>
+
+          {/* Support Text */}
+          <p className="support-text">{slide.supportText}</p>
         </div>
 
-        <div className="approach-band">
-          <div>
-            <span className="eyebrow">Teaching approach</span>
-            <h3>Active CBC learning with values, creativity, and practical skills.</h3>
-          </div>
-          <p>Teachers guide every child through inquiry, teamwork, faith-based reflection, and real-world application.</p>
-        </div>
-      </section>
+        {/* Carousel Controls - Arrows */}
+        <button
+          className="carousel-arrow carousel-arrow-left"
+          onClick={prevSlide}
+          aria-label="Previous slide"
+        >
+          &#8249;
+        </button>
 
-      <section id="facilities" className="section cream-bg">
-        <div className="section-header">
-          <p className="eyebrow">Facilities</p>
-          <h2>Spaces designed for learning, care, and growth.</h2>
-        </div>
-        <div className="facility-grid">
-          {facilities.map((item) => (
-            <article key={item.title} className={`facility-card ${item.image}`}>
-              <div className="facility-overlay">
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+        <button
+          className="carousel-arrow carousel-arrow-right"
+          onClick={nextSlide}
+          aria-label="Next slide"
+        >
+          &#8250;
+        </button>
 
-      <section id="admissions" className="section maroon-split">
-        <div className="split-panel left-panel">
-          <p className="eyebrow light">Admissions</p>
-          <h2>Join the Isaiyana family.</h2>
-          <ul className="admission-list">
-            <li>Completed application form</li>
-            <li>Birth certificate copy</li>
-            <li>Medical clearance and immunization record</li>
-            <li>Previous school report (where available)</li>
-            <li>Boarding agreement for residential learners</li>
-          </ul>
-          <p className="note">Fees are published annually. Contact admissions for package details, sibling discounts, and payment plans.</p>
-          <div className="cta-stack">
-            <a href="tel:+254700000000" className="btn solid">Call Admissions</a>
-            <a href="#" className="btn outline">Download Requirements</a>
-          </div>
-        </div>
-
-        <div className="split-panel right-panel white-bg">
-          <div className="timeline">
-            <div className="timeline-step">
-              <span>1</span>
-              <div>
-                <h4>Enquire</h4>
-                <p>Reach out online or by phone to start your application.</p>
-              </div>
-            </div>
-            <div className="timeline-step">
-              <span>2</span>
-              <div>
-                <h4>Visit</h4>
-                <p>See our campus on a guided school tour.</p>
-              </div>
-            </div>
-            <div className="timeline-step">
-              <span>3</span>
-              <div>
-                <h4>Apply</h4>
-                <p>Submit forms, documents, and any boarding preferences.</p>
-              </div>
-            </div>
-            <div className="timeline-step">
-              <span>4</span>
-              <div>
-                <h4>Assessment</h4>
-                <p>We invite learners to a friendly assessment and interview.</p>
-              </div>
-            </div>
-            <div className="timeline-step">
-              <span>5</span>
-              <div>
-                <h4>Welcome</h4>
-                <p>Receive confirmation and start your school journey with us.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="activities" className="section cream-bg">
-        <div className="section-header">
-          <p className="eyebrow">Extracurriculars</p>
-          <h2>Clubs, sports and creative teams for every interest.</h2>
-        </div>
-        <div className="activity-grid">
-          {activities.map((item) => (
-            <article key={item.title} className="activity-card">
-              <h3>{item.title}</h3>
-              <p>{item.copy}</p>
-            </article>
-          ))}
-        </div>
-
-        <div className="photo-strip">
-          <div className="photo-track">
-            <div className="photo-cell">Sports</div>
-            <div className="photo-cell">Choir</div>
-            <div className="photo-cell">Drama</div>
-            <div className="photo-cell">ICT</div>
-            <div className="photo-cell">Scouts</div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="section white-bg contact-section">
-        <div className="section-header">
-          <p className="eyebrow">Contact Us</p>
-          <h2>Visit, call, or send a message.</h2>
-        </div>
-
-        <div className="contact-grid">
-          <div className="contact-card">
-            <h3>Get in touch</h3>
-            <p>Isaiyana School, Njoro Road, Nakuru County</p>
-            <p><strong>Phone:</strong> +254 700 000 000</p>
-            <p><strong>Email:</strong> admissions@isaiyana.ac.ke</p>
-            <p><strong>Office hours:</strong> Mon–Fri 8:00–17:00</p>
-            <div className="map-frame">
-              <iframe
-                title="Isaiyana School Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.454419013767!2d36.07581897421559!3d-0.28984583556650396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1734ee814415%3A0xe71f7a615f86cea4!2sNakuru!5e0!3m2!1sen!2ske!4v1710000000000!5m2!1sen!2ske"
-                loading="lazy"
+        {/* Carousel Dots & Counter */}
+        <div className="carousel-controls">
+          <div className="carousel-dots">
+            {heroSlides.map((_, idx) => (
+              <button
+                key={idx}
+                className={`dot ${idx === currentSlide ? 'active' : ''}`}
+                onClick={() => goToSlide(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
               />
-            </div>
+            ))}
           </div>
-
-          <form className="contact-form">
-            <div className="form-group">
-              <label htmlFor="name">Full name</label>
-              <input id="name" type="text" placeholder="Jane Doe" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input id="email" type="email" placeholder="jane@example.com" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="message">Message</label>
-              <textarea id="message" rows={5} placeholder="How can we help?" />
-            </div>
-            <button type="submit" className="btn solid">Send Message</button>
-          </form>
+          <span className="slide-counter">{currentSlide + 1} / {heroSlides.length}</span>
         </div>
       </section>
 
-      <footer className="footer">
-        <div className="footer-grid">
-          <div className="footer-column">
-            <div className="footer-heading"><h4>About</h4></div>
-            <div className="footer-brand">
-              <span className="footer-brand-badge">IE</span>
-              <p className="footer-brand-name">Isaiyana Elite Primary &amp; Junior School</p>
+      {/* Stats Bar */}
+      <div className="stats-bar">
+        {statsData.map((item, idx) => (
+          <div key={idx} className="stat-column">
+            <div className="stat-main">{item.stat}</div>
+            <div className="stat-description">{item.description}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* About Section */}
+      <main>
+        <section id="about" className="section white-bg">
+          <div className="section-header">
+            <p className="eyebrow">OUR STORY</p>
+            <h2>Rooted in Faith, Driven by Excellence</h2>
+          </div>
+
+          <div className="about-grid">
+            <div className="about-copy">
+              <p>
+                Isaiyana Elite Primary & Junior School was established in 2008 with a clear purpose: to provide high-quality, Christ-centred education to the children of Kericho County and beyond. Located 1km from Chebwagan Junction along the Litein-Sotik Highway in Bureti Sub-County, the school has grown over 16 years into a trusted institution serving families from across the region.
+              </p>
+              <p>
+                From its founding, Isaiyana Elite has held firm to the belief that true education goes beyond academics — it shapes character, instils discipline, and produces God-fearing young leaders ready to serve their communities and country.
+              </p>
+
+              <div className="about-cards">
+                <div className="info-card vision-card">
+                  <div className="card-icon">V</div>
+                  <h3>Vision</h3>
+                  <p>To be a premier Christian-centred, competitive, and outstanding learning institution.</p>
+                </div>
+                <div className="info-card mission-card">
+                  <div className="card-icon">M</div>
+                  <h3>Mission</h3>
+                  <p>To provide high-quality, Christ-centred education from early childhood to junior school — equipping learners with knowledge, good discipline, and moral uprightness; nurturing God-fearing individuals who respect the Kenyan Constitution and contribute positively to society.</p>
+                </div>
+              </div>
             </div>
-            <p className="footer-copy">1km from Chebwagan Junction, Litein-Sotik Highway, Bureti Sub-County, Kericho County, Kenya.</p>
-            <div className="footer-socials">
-              <a href="#" className="social-link" aria-label="Facebook">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9" stroke="rgba(212,175,55,0.18)" fill="transparent" />
-                  <text x="12" y="15.2" textAnchor="middle" fontSize="10" fill="#d4af37" fontFamily="Inter, Arial, sans-serif" fontWeight="700">f</text>
-                </svg>
-              </a>
 
-              <a href="#" className="social-link" aria-label="WhatsApp">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9" stroke="rgba(212,175,55,0.18)" fill="transparent" />
-                  <text x="12" y="15.2" textAnchor="middle" fontSize="10" fill="#d4af37" fontFamily="Inter, Arial, sans-serif" fontWeight="700">w</text>
-                </svg>
-              </a>
-
-              <a href="#" className="social-link" aria-label="YouTube">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="12" cy="12" r="9" stroke="rgba(212,175,55,0.18)" fill="transparent" />
-                  <polygon points="10,8 16,12 10,16" fill="#d4af37" />
-                </svg>
-              </a>
+            <div className="teacher-panel about-teacher-card">
+              <div className="teacher-photo">Principal Photo</div>
+              <div className="teacher-copy">
+                <p className="eyebrow">Mr. Chepkwony Victor</p>
+                <h3 className="teacher-title">Head Teacher, Isaiyana Elite Primary & Junior School</h3>
+                <p className="teacher-quote">
+                  “At Isaiyana Elite, we believe every child carries a God-given potential that is waiting to be unlocked. Our role as educators is to create the environment — one that is safe, loving, disciplined, and academically rigorous — where that potential can flourish. We are committed to walking this journey with every family that trusts us with their child.”
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="footer-column">
-            <div className="footer-heading"><h4>Quick links</h4></div>
-            <ul className="footer-links">
-              <li><a href="#hero">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#academics">Academics</a></li>
-              <li><a href="#facilities">Facilities</a></li>
-              <li><a href="#why">Boarding Life</a></li>
-              <li><a href="#admissions">Admissions</a></li>
-              <li><a href="/alumni">Alumni</a></li>
-              <li><a href="#contact">Contact Us</a></li>
-            </ul>
+          <div className="core-values about-values">
+            <h3>Our Core Values</h3>
+            <div className="value-grid five-values">
+              <div className="value-card">
+                <div className="value-icon">C</div>
+                <h4>Christ-Centeredness</h4>
+                <p>Integrating faith into every aspect of character development.</p>
+              </div>
+              <div className="value-card">
+                <div className="value-icon">A</div>
+                <h4>Academic Excellence</h4>
+                <p>Driving competitive, high-quality learning outcomes.</p>
+              </div>
+              <div className="value-card">
+                <div className="value-icon">D</div>
+                <h4>Diligence</h4>
+                <p>Modelling an industrious and hardworking spirit in staff and students.</p>
+              </div>
+              <div className="value-card">
+                <div className="value-icon">I</div>
+                <h4>Integrity</h4>
+                <p>Upholding ethical standards across the entire institution.</p>
+              </div>
+              <div className="value-card">
+                <div className="value-icon">H</div>
+                <h4>Holistic Growth</h4>
+                <p>Supporting the social, physical, and spiritual well-being of every child.</p>
+              </div>
+            </div>
           </div>
-
-          <div className="footer-column">
-            <div className="footer-heading"><h4>Contact</h4></div>
-            <div className="footer-contact-row"><span className="footer-contact-label">Phone:</span><span>0794 598 172</span></div>
-            <div className="footer-contact-row"><span className="footer-contact-label">Email:</span><span>isaiyanaelite@gmail.com</span></div>
-            <div className="footer-contact-row"><span className="footer-contact-label">Office Hours:</span><span>Mon – Fri: 8:00am – 5:00pm<br/>Saturday: 8:00am – 12:00pm</span></div>
-            <div className="footer-contact-row"><span className="footer-contact-label">Google Maps:</span><span>95XQ+FXJ, Litein</span></div>
-          </div>
-
-          <div className="footer-column footer-promise">
-            <div className="footer-heading"><h4>Our Promise</h4></div>
-            <p className="footer-quote">"To provide high-quality, Christ-centred education — equipping learners with knowledge, good discipline, and moral uprightness."</p>
-            <p className="footer-quote-by">— School Mission Statement</p>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <p className="footer-copyright">© 2026 Isaiyana Elite Primary &amp; Junior School. All Rights Reserved.</p>
-          <p className="footer-bottom-quote">"Train up a child in the way he should go; even when he is old he will not depart from it." — Proverbs 22:6</p>
-          <button type="button" className="scroll-top-btn" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Scroll to top">
-            <span className="scroll-icon">▲</span>
-          </button>
-        </div>
-      </footer>
-    </main>
+        </section>
+      </main>
+    </>
   );
 }
