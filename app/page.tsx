@@ -176,7 +176,6 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* About Section */}
       <main>
         <section id="about" className="section white-bg">
           <div className="section-header">
@@ -251,6 +250,59 @@ export default function HomePage() {
           </div>
         </section>
       </main>
+
+      {/* Why Choose Us Section */}
+      <section className="section why-section">
+        <div className="section-header">
+          <p className="eyebrow">WHY FAMILIES CHOOSE US</p>
+          <h2>Excellence You Can Trust</h2>
+          <p className="section-subtitle">
+            We combine academic rigour, Christian values, and a nurturing environment to raise well-rounded, God-fearing leaders.
+          </p>
+        </div>
+
+        <div className="why-grid">
+          <article className="why-card">
+            <div className="why-card-icon">✝</div>
+            <h3>Christ-Centred</h3>
+            <p>Faith is woven into every aspect of school life — from morning devotions to curriculum, we nurture students who are grounded in Christian values.</p>
+          </article>
+
+          <article className="why-card">
+            <div className="why-card-icon">📚</div>
+            <h3>CBC Curriculum</h3>
+            <p>We fully implement the Competency-Based Education (CBE) framework, focusing on practical skills, critical thinking, and real-world application.</p>
+          </article>
+
+          <article className="why-card">
+            <div className="why-card-icon">🏠</div>
+            <h3>Safe Boarding</h3>
+            <p>Separate, well-supervised boarding sections for boys and girls provide a safe, structured home-away-from-home environment for learners.</p>
+          </article>
+
+          <article className="why-card">
+            <div className="why-card-icon">👥</div>
+            <h3>Qualified Teachers</h3>
+            <p>Our team of 20 dedicated teachers bring passion, experience, and a commitment to seeing every child reach their full potential.</p>
+          </article>
+
+          <article className="why-card">
+            <div className="why-card-icon">🔬</div>
+            <h3>Modern Facilities</h3>
+            <p>From a well-equipped computer lab and science lab to a spacious playground and dining room, our facilities support holistic learning.</p>
+          </article>
+
+          <article className="why-card">
+            <div className="why-card-icon">🌱</div>
+            <h3>Holistic Development</h3>
+            <p>Beyond academics, we invest in sports, music, scouting, ICT, and Christian Union to ensure every student grows in body, mind, and spirit.</p>
+          </article>
+        </div>
+
+        <div className="why-cta">
+          <button className="btn gold-outline">Ready to enrol? Apply Today</button>
+        </div>
+      </section>
     </>
   );
 }
