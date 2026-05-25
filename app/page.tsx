@@ -51,9 +51,63 @@ const statsData = [
   { stat: 'Boarding & Day', description: 'Boys & Girls Sections' },
 ];
 
+const academicsTabs = [
+  {
+    label: 'Pre-Primary (PP1–PP2)',
+    title: 'Pre-Primary School',
+    badge: 'PP1 & PP2',
+    description:
+      'Early childhood development — language, numeracy, social skills, and creative play through a Christian foundation.',
+  },
+  {
+    label: 'Primary (Grade 1–6)',
+    title: 'Primary School',
+    badge: 'Grade 1 – Grade 6',
+    description:
+      'Core CBE learning areas building literacy, numeracy, science, social studies, and practical life skills.',
+  },
+  {
+    label: 'Junior School (Grade 7–9)',
+    title: 'Junior School',
+    badge: 'Grade 7 – Grade 9',
+    description:
+      'Advanced CBE subjects with pre-technical studies, integrated science, and preparation for Senior School.',
+  },
+];
+
+const learningAreas = [
+  { label: 'English Activities' },
+  { label: 'Kiswahili Activities' },
+  { label: 'Mathematics Activities' },
+  { label: 'Science & Technology' },
+  { label: 'Social Studies' },
+  { label: 'Christian Religious Education (CRE)' },
+  { label: 'Creative Arts & Sports' },
+  { label: 'Agriculture & Nutrition' },
+  { label: 'Integrated Science', style: 'gold', note: '(Jr)' },
+  { label: 'Pre-Technical Studies', style: 'gold', note: '(Jr)' },
+  { label: 'ICT — Special Programme', style: 'maroon', icon: '★' },
+];
+
+const approachFeatures = [
+  {
+    title: 'Activity-Based Learning',
+    description: 'Hands-on tasks and real-world exercises over rote memorisation',
+  },
+  {
+    title: 'Learner-Centred',
+    description: "Every child's pace, strengths, and learning style are respected",
+  },
+  {
+    title: 'CBE Framework',
+    description: "Fully aligned with Kenya's Competency-Based Education curriculum",
+  },
+];
+
 export default function HomePage() {
   const [scrolled, setScrolled] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeAcademicTab, setActiveAcademicTab] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -301,6 +355,78 @@ export default function HomePage() {
 
         <div className="why-cta">
           <button className="btn gold-outline">Ready to enrol? Apply Today</button>
+        </div>
+      </section>
+
+      <section id="academics" className="section academics-section">
+        <div className="section-header">
+          <p className="eyebrow">ACADEMICS</p>
+          <h2>Academic Excellence — From Pre-Primary to Junior School</h2>
+          <p className="section-subtitle">
+            Built on the Competency-Based Education (CBE) framework, our curriculum is designed to develop well-rounded, capable, and confident learners.
+          </p>
+        </div>
+
+        <div className="academics-tabs">
+          <div className="tab-buttons">
+            {academicsTabs.map((tab, index) => (
+              <button
+                key={tab.label}
+                type="button"
+                className={`tab-button ${activeAcademicTab === index ? 'active' : ''}`}
+                onClick={() => setActiveAcademicTab(index)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="tab-panel">
+            <div className="tab-content">
+              <div className="tab-heading-row">
+                <div>
+                  <p className="eyebrow">{academicsTabs[activeAcademicTab].badge}</p>
+                  <h3>{academicsTabs[activeAcademicTab].title}</h3>
+                </div>
+              </div>
+              <p className="tab-copy">{academicsTabs[activeAcademicTab].description}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="pill-grid">
+          {learningAreas.map((area) => (
+            <span
+              key={area.label}
+              className={`pill ${area.style === 'gold' ? 'gold' : area.style === 'maroon' ? 'maroon' : ''}`}
+            >
+              {area.icon ? `${area.icon} ` : ''}
+              {area.label}
+              {area.note ? ` ${area.note}` : ''}
+            </span>
+          ))}
+        </div>
+
+        <div className="academics-approach">
+          <div className="approach-copy">
+            <p className="quote-mark">“</p>
+            <h3>Our Teaching Approach</h3>
+            <p>
+              At Isaiyana Elite, learning goes beyond memorisation. Our teachers use activity-based, learner-centred methods aligned with the CBE framework — encouraging curiosity, collaboration, and creative problem-solving. Every lesson is an opportunity to develop not just academic knowledge, but the values and competencies that will serve our students for life.
+            </p>
+          </div>
+
+          <div className="feature-grid">
+            {approachFeatures.map((feature) => (
+              <article key={feature.title} className="feature-card">
+                <div className="feature-icon">📘</div>
+                <div>
+                  <h4>{feature.title}</h4>
+                  <p>{feature.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </>
