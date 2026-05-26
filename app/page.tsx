@@ -18,29 +18,9 @@ const heroSlides = [
     id: 1,
     eyebrow: 'EST. 2008 · KERICHO COUNTY, KENYA',
     tagline: '"Strive To Excel"',
-    subtitle: 'A Christ-Centred Boarding & Day School — Nurturing Academic Excellence and Godly Character Since 2008',
+    subtitle: 'Investment in knowledge pays the best interest',
     supportText: 'PP1 · PP2 · Grades 1–6 · Junior School Grades 7–9 | Boarding & Day',
-  },
-  {
-    id: 2,
-    eyebrow: 'FAITH & VALUES',
-    tagline: '"Excellence Through Character"',
-    subtitle: 'Building confident young leaders rooted in Christian values and academic excellence.',
-    supportText: 'Daily worship · Scripture integration · Moral compass',
-  },
-  {
-    id: 3,
-    eyebrow: 'MODERN LEARNING',
-    tagline: '"Competency-Based Education"',
-    subtitle: 'A fresh CBC curriculum designed for real-world readiness and lifelong learning.',
-    supportText: 'Science labs · ICT hubs · Creative studios · Modern facilities',
-  },
-  {
-    id: 4,
-    eyebrow: 'HOLISTIC GROWTH',
-    tagline: '"Nurturing Every Child"',
-    subtitle: 'Balanced academics, spirituality, arts, and wellbeing prepare students for life beyond school.',
-    supportText: 'Boys & Girls sections · Safe boarding · Experienced educators',
+    images: ['is.hero1.jpeg', '4Untitled.jpeg', '5Untitled.jpeg', '8Untitled.jpeg'],
   },
 ];
 
@@ -116,19 +96,31 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Auto-advance the hero image carousel (cycles the images array)
+  useEffect(() => {
+    const imgs = heroSlides[0]?.images || [];
+    if (!imgs.length) return;
+    const id = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % imgs.length);
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
+
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    const imgs = heroSlides[0].images || [];
+    setCurrentSlide((prev) => (prev + 1) % imgs.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+    const imgs = heroSlides[0].images || [];
+    setCurrentSlide((prev) => (prev - 1 + imgs.length) % imgs.length);
   };
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
 
-  const slide = heroSlides[currentSlide];
+  const slide = heroSlides[0];
 
   return (
     <>
@@ -146,7 +138,6 @@ export default function HomePage() {
               </a>
             ))}
           </nav>
-          <button className="btn pill apply-btn">Apply Now</button>
         </div>
       </header>
 
@@ -155,13 +146,16 @@ export default function HomePage() {
         {/* Carousel Background */}
         <div className="hero-carousel-container">
           <div className="hero-carousel">
-            {heroSlides.map((s, idx) => (
+            {(slide.images || []).map((img, idx) => (
               <div
-                key={s.id}
+                key={`${slide.id}-${idx}`}
                 className={`hero-slide ${idx === currentSlide ? 'active' : ''}`}
                 style={{
                   opacity: idx === currentSlide ? 1 : 0,
                   transition: 'opacity 0.6s ease-in-out',
+                  backgroundImage: `url('/images/${img}')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
                 }}
               />
             ))}
@@ -180,12 +174,9 @@ export default function HomePage() {
           {/* CTA Buttons */}
           <div className="cta-buttons">
             <button className="btn solid btn-large">Apply for Admission</button>
-            <button className="btn outline btn-large">Explore the School</button>
           </div>
 
-          {/* Support Text */}
-          <p className="support-text">{slide.supportText}</p>
-        </div>
+          </div>
 
         {/* Carousel Controls - Arrows */}
         <button
@@ -207,7 +198,7 @@ export default function HomePage() {
         {/* Carousel Dots & Counter */}
         <div className="carousel-controls">
           <div className="carousel-dots">
-            {heroSlides.map((_, idx) => (
+            {(slide.images || []).map((_, idx) => (
               <button
                 key={idx}
                 className={`dot ${idx === currentSlide ? 'active' : ''}`}
@@ -216,7 +207,7 @@ export default function HomePage() {
               />
             ))}
           </div>
-          <span className="slide-counter">{currentSlide + 1} / {heroSlides.length}</span>
+          <span className="slide-counter">{currentSlide + 1} / {((slide.images || []).length)}</span>
         </div>
       </section>
 
@@ -234,7 +225,6 @@ export default function HomePage() {
         <section id="about" className="section white-bg">
           <div className="section-header">
             <p className="eyebrow">OUR STORY</p>
-            <h2>Rooted in Faith, Driven by Excellence</h2>
           </div>
 
           <div className="about-grid">
@@ -247,11 +237,7 @@ export default function HomePage() {
               </p>
 
               <div className="about-cards">
-                <div className="info-card vision-card">
-                  <div className="card-icon">V</div>
-                  <h3>Vision</h3>
-                  <p>To be a premier Christian-centred, competitive, and outstanding learning institution.</p>
-                </div>
+
                 <div className="info-card mission-card">
                   <div className="card-icon">M</div>
                   <h3>Mission</h3>
@@ -265,8 +251,8 @@ export default function HomePage() {
               <div className="teacher-copy">
                 <p className="eyebrow">Mr. Chepkwony Victor</p>
                 <h3 className="teacher-title">Head Teacher, Isaiyana Elite Primary & Junior School</h3>
-                <p className="teacher-quote">
-                  “At Isaiyana Elite, we believe every child carries a God-given potential that is waiting to be unlocked. Our role as educators is to create the environment — one that is safe, loving, disciplined, and academically rigorous — where that potential can flourish. We are committed to walking this journey with every family that trusts us with their child.”
+                <p className="teacher-quote ">
+                  “At Isaiyana Elite, we believe every child carries a God-given potential that is waiting to be unlocked. Our role as educators is to create the environment — one that is safe, loving, disciplined, and academically rigorous — where that potential can flourish.”
                 </p>
               </div>
             </div>
@@ -303,9 +289,8 @@ export default function HomePage() {
             </div>
           </div>
         </section>
-      </main>
 
-      {/* Why Choose Us Section */}
+              {/* Why Choose Us Section */}
       <section className="section why-section">
         <div className="section-header">
           <p className="eyebrow">WHY FAMILIES CHOOSE US</p>
@@ -429,6 +414,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </main>
+
+
     </>
   );
 }
