@@ -88,6 +88,12 @@ export default function HomePage() {
   const [scrolled, setScrolled] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeAcademicTab, setActiveAcademicTab] = useState(0);
+  const [whyIndex, setWhyIndex] = useState(0);
+  const [approachPhotoIndex, setApproachPhotoIndex] = useState(0);
+  const visibleWhy = 4;
+  const whyCardsCount = 6;
+  const whyPages = Math.max(1, Math.ceil(whyCardsCount / visibleWhy));
+  const approachPhotos = ['7Untitled.jpeg', '2Untitled.jpeg', '3Untitled.jpeg'];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -105,6 +111,14 @@ export default function HomePage() {
     }, 5000);
     return () => clearInterval(id);
   }, []);
+
+  useEffect(() => {
+    if (!approachPhotos.length) return;
+    const id = setInterval(() => {
+      setApproachPhotoIndex((prev) => (prev + 1) % approachPhotos.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [approachPhotos.length]);
 
   const nextSlide = () => {
     const imgs = heroSlides[0].images || [];
@@ -249,8 +263,7 @@ export default function HomePage() {
             <div className="teacher-panel about-teacher-card">
               <div className="teacher-photo">Principal Photo</div>
               <div className="teacher-copy">
-                <p className="eyebrow">Mr. Chepkwony Victor</p>
-                <h3 className="teacher-title">Head Teacher, Isaiyana Elite Primary & Junior School</h3>
+                <h3 className="teacher-title">First & Second name, the school director </h3>
                 <p className="teacher-quote ">
                   “At Isaiyana Elite, we believe every child carries a God-given potential that is waiting to be unlocked. Our role as educators is to create the environment — one that is safe, loving, disciplined, and academically rigorous — where that potential can flourish.”
                 </p>
@@ -301,55 +314,84 @@ export default function HomePage() {
         </div>
 
         <div className="why-grid">
-          <article className="why-card">
-            <div className="why-card-icon">✝</div>
-            <h3>Christ-Centred</h3>
-            <p>Faith is woven into every aspect of school life — from morning devotions to curriculum, we nurture students who are grounded in Christian values.</p>
-          </article>
+          <div className="why-carousel-viewport" style={{ overflow: 'hidden', position: 'relative' }}>
+            <div
+              className="why-carousel-track"
+                style={{
+                  display: 'flex',
+                  gap: '1rem',
+                  transition: 'transform 0.45s ease',
+                  transform: `translateX(-${whyIndex * 100}%)`,
+                  // width: `${whyPages * 100}%`,
+                }}
+            >
+              <article className="why-card" style={{ flex: `0 0 ${100 / visibleWhy}%` }}>
+                <div className="why-card-icon">✝</div>
+                <h3>Christ-Centred</h3>
+                <p>Faith is woven into every aspect of school life — from morning devotions to curriculum, we nurture students who are grounded in Christian values.</p>
+              </article>
 
-          <article className="why-card">
-            <div className="why-card-icon">📚</div>
-            <h3>CBC Curriculum</h3>
-            <p>We fully implement the Competency-Based Education (CBE) framework, focusing on practical skills, critical thinking, and real-world application.</p>
-          </article>
+              <article className="why-card" style={{ flex: `0 0 ${100 / visibleWhy}%` }}>
+                <div className="why-card-icon">📚</div>
+                <h3>CBC Curriculum</h3>
+                <p>We fully implement the Competency-Based Education (CBE) framework, focusing on practical skills, critical thinking, and real-world application.</p>
+              </article>
 
-          <article className="why-card">
-            <div className="why-card-icon">🏠</div>
-            <h3>Safe Boarding</h3>
-            <p>Separate, well-supervised boarding sections for boys and girls provide a safe, structured home-away-from-home environment for learners.</p>
-          </article>
+              <article className="why-card" style={{ flex: `0 0 ${100 / visibleWhy}%` }}>
+                <div className="why-card-icon">🏠</div>
+                <h3>Safe Boarding</h3>
+                <p>Separate, well-supervised boarding sections for boys and girls provide a safe, structured home-away-from-home environment for learners.</p>
+              </article>
 
-          <article className="why-card">
-            <div className="why-card-icon">👥</div>
-            <h3>Qualified Teachers</h3>
-            <p>Our team of 20 dedicated teachers bring passion, experience, and a commitment to seeing every child reach their full potential.</p>
-          </article>
+              <article className="why-card" style={{ flex: `0 0 ${100 / visibleWhy}%` }}>
+                <div className="why-card-icon">👥</div>
+                <h3>Qualified Teachers</h3>
+                <p>Our team of 20 dedicated teachers bring passion, experience, and a commitment to seeing every child reach their full potential.</p>
+              </article>
 
-          <article className="why-card">
-            <div className="why-card-icon">🔬</div>
-            <h3>Modern Facilities</h3>
-            <p>From a well-equipped computer lab and science lab to a spacious playground and dining room, our facilities support holistic learning.</p>
-          </article>
+              <article className="why-card" style={{ flex: `0 0 ${100 / visibleWhy}%` }}>
+                <div className="why-card-icon">🔬</div>
+                <h3>Modern Facilities</h3>
+                <p>From a well-equipped computer lab and science lab to a spacious playground and dining room, our facilities support holistic learning.</p>
+              </article>
 
-          <article className="why-card">
-            <div className="why-card-icon">🌱</div>
-            <h3>Holistic Development</h3>
-            <p>Beyond academics, we invest in sports, music, scouting, ICT, and Christian Union to ensure every student grows in body, mind, and spirit.</p>
-          </article>
+              <article className="why-card" style={{ flex: `0 0 ${100 / visibleWhy}%` }}>
+                <div className="why-card-icon">🌱</div>
+                <h3>Holistic Development</h3>
+                <p>Beyond academics, we invest in sports, music, scouting, ICT, and Christian Union to ensure every student grows in body, mind, and spirit.</p>
+              </article>
+            </div>
+
+            <div className="why-carousel-controls" style={{ position: 'absolute', right: '0.5rem', top: '50%', transform: 'translateY(-50%)', display: 'flex', gap: '0.5rem' }}>
+              <button
+                aria-label="Previous why cards"
+                className="carousel-arrow"
+                onClick={() => setWhyIndex((p) => (p - 1 + whyPages) % whyPages)}
+              >
+                &#8249;
+              </button>
+              <button
+                aria-label="Next why cards"
+                className="carousel-arrow"
+                onClick={() => setWhyIndex((p) => (p + 1) % whyPages)}
+              >
+                &#8250;
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className="why-cta">
-          <button className="btn gold-outline">Ready to enrol? Apply Today</button>
+        <div className="why-cta" style={{ textAlign: 'center', marginTop: '1.25rem' }}>
+          <button className="btn gold-outline" style={{ minWidth: 220 }}>Ready to enrol? Apply Today</button>
         </div>
       </section>
+
 
       <section id="academics" className="section academics-section">
         <div className="section-header">
           <p className="eyebrow">ACADEMICS</p>
-          <h2>Academic Excellence — From Pre-Primary to Junior School</h2>
-          <p className="section-subtitle">
-            Built on the Competency-Based Education (CBE) framework, our curriculum is designed to develop well-rounded, capable, and confident learners.
-          </p>
+          <h2>Built on the Competency-Based Education framework</h2>
+
         </div>
 
         <div className="academics-tabs">
@@ -393,25 +435,142 @@ export default function HomePage() {
         </div>
 
         <div className="academics-approach">
-          <div className="approach-copy">
-            <p className="quote-mark">“</p>
-            <h3>Our Teaching Approach</h3>
-            <p>
-              At Isaiyana Elite, learning goes beyond memorisation. Our teachers use activity-based, learner-centred methods aligned with the CBE framework — encouraging curiosity, collaboration, and creative problem-solving. Every lesson is an opportunity to develop not just academic knowledge, but the values and competencies that will serve our students for life.
-            </p>
+          <div className="approach-media">
+            <div
+              className="approach-photo-card"
+              style={{
+                backgroundImage: `url('/images/${approachPhotos[approachPhotoIndex]}')`,
+              }}
+            >
+              <div className="approach-photo-label">
+                <span>School photo {approachPhotoIndex + 1} of {approachPhotos.length}</span>
+              </div>
+
+              <div className="approach-photo-controls">
+                <button
+                  type="button"
+                  aria-label="Previous teaching photo"
+                  className="approach-arrow"
+                  onClick={() => setApproachPhotoIndex((prev) => (prev - 1 + approachPhotos.length) % approachPhotos.length)}
+                >
+                  &#8249;
+                </button>
+
+                <div className="approach-dots">
+                  {approachPhotos.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={`approach-dot ${idx === approachPhotoIndex ? 'active' : ''}`}
+                      aria-label={`Photo ${idx + 1}`}
+                      onClick={() => setApproachPhotoIndex(idx)}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  aria-label="Next teaching photo"
+                  className="approach-arrow"
+                  onClick={() => setApproachPhotoIndex((prev) => (prev + 1) % approachPhotos.length)}
+                >
+                  &#8250;
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className="feature-grid">
-            {approachFeatures.map((feature) => (
-              <article key={feature.title} className="feature-card">
-                <div className="feature-icon">📘</div>
-                <div>
-                  <h4>{feature.title}</h4>
-                  <p>{feature.description}</p>
-                </div>
-              </article>
-            ))}
+          <div className="approach-copy">
+            <div className="feature-grid">
+              {approachFeatures.map((feature) => (
+                <article key={feature.title} className="feature-card">
+                  <div className="feature-icon">📘</div>
+                  <div>
+                    <h4>{feature.title}</h4>
+                    <p>{feature.description}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
+        </div>
+      </section>
+
+
+      <section id="facilities" className="section facilities-section">
+        <div className="section-header">
+          <p className="eyebrow">OUR FACILITIES</p>
+          <h2>Built for Learning, Built for Life</h2>
+          <p className="section-subtitle">
+            We have invested in a learning environment that supports every dimension of a child's growth — academic, physical, social, and spiritual.
+          </p>
+        </div>
+
+        <div className="facility-grid">
+          <article className="facility-card classroom">
+            <div className="facility-card-content">
+              <h3>Classrooms</h3>
+              <p className="facility-tagline">Spacious & CBE-ready</p>
+            </div>
+            <div className="facility-overlay">
+              <p>Spacious, well-lit classrooms equipped to support interactive CBE learning for all levels — from PP1 through to Grade 9.</p>
+            </div>
+          </article>
+
+          <article className="facility-card lab">
+            <div className="facility-card-content">
+              <h3>Computer Lab</h3>
+              <p className="facility-tagline">Hands-on digital skills</p>
+            </div>
+            <div className="facility-overlay">
+              <p>A dedicated ICT lab where students gain hands-on digital skills in line with CBC requirements.</p>
+            </div>
+          </article>
+
+          <article className="facility-card ict">
+            <div className="facility-card-content">
+              <h3>Science Lab</h3>
+              <p className="facility-tagline">Practical experiments</p>
+            </div>
+            <div className="facility-overlay">
+              <p>Equipped science laboratory for practical experiments supporting integrated science and technology learning areas.</p>
+            </div>
+          </article>
+
+          <article className="facility-card dining">
+            <div className="facility-card-content">
+              <h3>Dining Room</h3>
+              <p className="facility-tagline">Nutritious meals daily</p>
+            </div>
+            <div className="facility-overlay">
+              <p>A communal dining space serving nutritious, well-balanced meals to all boarding students — breakfast, lunch, and supper.</p>
+            </div>
+          </article>
+
+          <article className="facility-card playground">
+            <div className="facility-card-content">
+              <h3>Playground</h3>
+              <p className="facility-tagline">Sports & recreation</p>
+            </div>
+            <div className="facility-overlay">
+              <p>An open playground and sports grounds for physical education, games, and recreational activities for all students.</p>
+            </div>
+          </article>
+
+          <article className="facility-card sickbay">
+            <div className="facility-card-content">
+              <h3>Sick Bay / Rest Room</h3>
+              <p className="facility-tagline">Student care & rest</p>
+            </div>
+            <div className="facility-overlay">
+              <p>A dedicated rest facility for unwell students, ensuring their comfort and care while at school.</p>
+            </div>
+          </article>
+        </div>
+
+        <div className="facility-footer">
+          <p className="facility-note">Placeholder images shown — real facility photos coming soon.</p>
+          <button className="btn gold-outline facility-action">Book a School Tou</button>
         </div>
       </section>
       </main>

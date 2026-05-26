@@ -521,7 +521,9 @@ main {
 }
 
 .facility-grid {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(240px, 1fr));
+  gap: 1.5rem;
 }
 
 .facility-card {
@@ -532,8 +534,11 @@ main {
   display: flex;
   align-items: flex-end;
   padding: 1.5rem;
+  background: linear-gradient(180deg, rgba(74, 0, 0, 0.12), rgba(16, 3, 0, 0.35)), #4a0000;
   background-size: cover;
   background-position: center;
+  border-radius: 1.75rem;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
 }
 
 .facility-card.classroom { background-image: url('/images/classroom.jpg'); }
@@ -543,20 +548,69 @@ main {
 .facility-card.playground { background-image: url('/images/playground.jpg'); }
 .facility-card.sickbay { background-image: url('/images/sickbay.jpg'); }
 
+.facility-card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.facility-card-content h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.45rem;
+}
+
+.facility-tagline {
+  margin: 0;
+  font-size: 0.98rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
 .facility-overlay {
-  width: 100%;
-  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.75));
-  padding: 1rem;
-  border-radius: 1.25rem;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.85));
+  color: #fff;
   transform: translateY(60px);
   opacity: 0;
   transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.facility-overlay p {
+  margin: 0;
+  line-height: 1.75;
 }
 
 .facility-card:hover .facility-overlay {
   transform: translateY(0);
   opacity: 1;
 }
+
+.facility-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.facility-note {
+  margin: 0;
+  font-style: italic;
+  color: #d4af37;
+}
+
+.facility-action {
+  border-color: #6b0f1a;
+  color: #6b0f1a;
+  background: transparent;
+}
+
+.facility-action:hover {
+  background: rgba(107, 15, 26, 0.08);
+}
+
 
 .maroon-split {
   display: grid;
@@ -1305,7 +1359,7 @@ main {
 
 .why-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
   gap: 1.5rem;
   align-items: stretch;
 }
@@ -1453,7 +1507,7 @@ main {
 .academics-approach {
   margin-top: 2rem;
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   gap: 1.5rem;
   align-items: stretch;
   background: #fff6f4;
@@ -1462,9 +1516,94 @@ main {
   box-shadow: 0 30px 60px rgba(46, 17, 20, 0.08);
 }
 
-.approach-copy {
+.approach-media {
   display: grid;
   gap: 1rem;
+  align-items: start;
+}
+
+.approach-photo-card {
+  min-height: 420px;
+  border-radius: 1.75rem;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.approach-photo-label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #4a0000;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.approach-photo-controls {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.approach-arrow {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #6b0f1a;
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  box-shadow: 0 18px 30px rgba(46, 17, 20, 0.18);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.approach-arrow:hover {
+  transform: translateY(-1px);
+  background: #f7e8d5;
+}
+
+.approach-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: center;
+  flex: 1;
+}
+
+.approach-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #d8c0ad;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.approach-dot.active {
+  width: 24px;
+  background: #6b0f1a;
+}
+
+.approach-copy {
+  display: grid;
+  gap: 1.5rem;
 }
 
 .quote-mark {
